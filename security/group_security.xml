@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="library_librarian_category" model="ir.module.category">
+        <field name="name">Bibliothécaires</field>
+        <field name="description">Droit des bibliothécaires</field>
+    </record>
+
+    <record id="library_librarian_group" model="res.groups">
+        <field name="name">Librarian workers</field>
+        <field name="category_id" ref="library_librarian_category"/>
+        <field name="implied_ids" eval="[(4, ref('library_users_group'))]"/>
+    </record>
+
+    <record id="library_users_group" model="res.groups">
+        <field name="name">Librarian users</field>
+        <field name="category_id" ref="library_librarian_category"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+
+    <record id="library_admin_group" model="res.groups">
+        <field name="name">Librarian admin</field>
+        <field name="category_id" ref="library_librarian_category"/>
+        <field name="implied_ids" eval="[(4, ref('library_librarian_group'))]"/>
+        <field name="users" eval="[(4, ref('base.user_root')), (4, ref('base.user_admin'))]"/>
+    </record>
+</odoo>

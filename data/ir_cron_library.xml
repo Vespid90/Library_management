@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="ir_cron_auto_post_draft_entry" model="ir.cron">
+        <field name="name">Rappel d'un livre en retard</field>
+        <field name="interval_number">2</field>
+        <field name="interval_type">days</field>
+        <field name="model_id" ref="model_library_loan"/>
+        <field name="code">model._message_cron()</field>
+        <field name="state">code</field>
+    </record>
+</odoo>

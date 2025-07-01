@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="library_loan_view_search" model="ir.ui.view">
+            <field name="name">book.tag.search</field>
+            <field name="model">book.tag</field>
+            <field name="arch" type="xml">
+                <search>
+                    <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+        <record id="library_loan_view_list" model="ir.ui.view">
+            <field name="name">library.loan.list</field>
+            <field name="model">library.loan</field>
+            <field name="arch" type="xml">
+                <list>
+                    <field name="active" column_invisible="1"/>
+                    <field name="member_id"/>
+                    <field name="name"/>
+                    <field name="check_out_date"/>
+                    <field name="return_date_due"/>
+                    <field name="return_date_effective"/>
+                    <field name="state"/>
+                </list>
+            </field>
+        </record>
+        <record id="library_loan_view_form" model="ir.ui.view">
+            <field name="name">library.loan.form</field>
+            <field name="model">library.loan</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <widget name="web_ribbon" title="Archived" bg_color="text-bg-danger" invisible="active"/>
+                        <group>
+                            <field name="active" invisible="1"/>
+                            <field name="member_id"/>
+                            <field name="book_id" domain="[('id', 'in', book_ids_domains)]" />
+                            <field name="book_ids_domains" invisible="1"/>
+                            <field name="check_out_date"/>
+                            <field name="return_date_due"/>
+                            <field name="return_date_effective" required="state == 'returned'"/>
+                            <field name="state"/>
+                            <button id="library_loan_wizard" type="object" name="action_library_loan_wizard"
+                                    class="btn btn-primary">
+                                New
+                            </button>
+                        </group>
+                        <chatter/>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="library_loan_action_share" model="ir.actions.server">
+            <field name="name">Share book info</field>
+            <field name="model_id" ref="model_library_loan"/>
+            <field name="binding_model_id" ref="my_library.model_library_loan"/>
+            <field name="binding_view_types">form</field>
+            <field name="state">code</field>
+            <field name="code">
+                if records:
+                action = record._action_share_book()
+            </field>
+        </record>
+        <record id="open_view_library_loan_action" model="ir.actions.act_window">
+            <field name="name">Loans</field>
+            <field name="res_model">library.loan</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="library_loan_view_search"/>
+        </record>
+        <menuitem id="library_loan_menu"
+                  name="Loans"
+                  parent="library_book_root"
+                  groups="base.group_user"
+                  sequence="2"
+                  action="open_view_library_loan_action"/>
+    </data>
+</odoo>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <record id="library_loan_wizard_view" model="ir.ui.view">
+            <field name="name">Library loan wizard view</field>
+            <field name="model">library.loan.wizard</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <header>
+                            <field name="state" widget="statusbar" statusbar_visible="member,list_book,preview"/>
+                        </header>
+                        <group>
+                            <field name="member_id" invisible="state != 'member'"/>
+                            <field name="return_date_due" invisible="state != 'member'"/>
+                            <field name="loan_books_ids" invisible="state != 'list_book'">
+                                <list editable="bottom">
+                                    <field name="quantity"/>
+                                    <field name="name"/>
+                                    <field name="author"/>
+                                </list>
+                            </field>
+                        </group>
+                        <group edit="0">
+                            <field name="member_id" invisible="state != 'preview'" readonly="1" options="{'no_open': True}"/>
+                            <field name="return_date_due" invisible="state != 'preview'" readonly="1"/>
+                            <field name="loan_books_ids" invisible="state != 'preview'" readonly="1">
+                                <list editable="bottom" edit="0">
+                                    <field name="quantity"/>
+                                    <field name="name"/>
+                                    <field name="author"/>
+                                </list>
+                            </field>
+                        </group>
+                        <footer>
+                            <button name="action_list_book" type="object" class="btn-primary"
+                                    invisible="state != 'member'">
+                                Next
+                            </button>
+                            <button name="action_preview_book" type="object" class="btn-primary"
+                                    invisible="state != 'list_book'">
+                                Next
+                            </button>
+                            <button id="library_loan_wizard_book_id" type="object" name="action_create_record"
+                                    class="oe_highlight" invisible="state != 'preview'">
+                                Create
+                            </button>
+                            <button string="Discard" class="btn-secondary" special="cancel">
+                                Cancel
+                            </button>
+                        </footer>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>
