@@ -75,7 +75,8 @@ class LibraryLoan(models.Model):
         result = super().default_get(fields_list)
         if 'check_out_date' in fields_list and 'return_date_due' in fields_list:
             result['check_out_date'] = fields.Date.today()
-            result['return_date_due'] = fields.Date.today() + relativedelta(months=3)
+            result['return_date_due'] = fields.Date.today() + relativedelta(days=int(self.env['ir.config_parameter'].get_param('library_loan.return_duration_due')))
+            #le get_param donne TOUJOURS un string, il faut donc forcer le typage INTEGER ici
         return result
 
     @api.depends('')

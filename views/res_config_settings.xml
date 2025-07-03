@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="res_config_settings_view_form" model="ir.ui.view">
+            <field name="name">res.config.settings.view.form.inherit.my.library</field>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form" position="inside">
+                    <app data-string="My library"
+                         string="My library" name="my_library">
+                        <block title="My library Settings"
+                               name="my_library">
+                            <setting string="Duration loan" id="return_duration_due_setting">
+                                <field name="return_duration_due"/>
+                            </setting>
+                        </block>
+                    </app>
+                </xpath>
+            </field>
+        </record>
+        <record id="res_config_settings_action" model="ir.actions.act_window">
+            <field name="name">Settings</field>
+            <field name="res_model">res.config.settings</field>
+            <field name="view_mode">form</field>
+            <field name="target">inline</field>
+            <field name="context">{'module' : 'my_library'}</field>
+        </record>
+        <menuitem id="library_book_menu"
+                  name="Settings"
+                  parent="library_book_root"
+                  groups="base.group_user"
+                  sequence="5"
+                  action="res_config_settings_action"
+        />
+    </data>
+</odoo>
