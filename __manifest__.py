@@ -17,6 +17,7 @@ Librairie de livres
     # for the full list
     'category': 'Library',
     'version': '0.1',
+    'post_init_hook': 'duration_loan',
 
     # any module necessary for this one to work correctly
     'depends': ['base', 'mail'],
@@ -49,6 +50,5 @@ Librairie de livres
     'installable': True,
     'application': True,
     'auto_install': True,
-    'sequence':-100,
+    'sequence': -100,
 }
-
