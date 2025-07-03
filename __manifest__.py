@@ -32,6 +32,7 @@ Librairie de livres
         'views/book_tag_view.xml',
         'views/book_category_view.xml',
         'views/res_partner_views.xml',
+        'views/res_config_settings.xml',
 
         'data/ir_cron_library.xml',
         'data/my_library_sequence.xml',
